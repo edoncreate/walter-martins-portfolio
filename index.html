@@ -20,25 +20,41 @@ a{color:#161616}a:hover{color:#5c5c58}
 html{scroll-behavior:smooth}
 a:focus-visible{outline:2px solid #c2410c;outline-offset:3px;border-radius:4px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+html{scroll-padding-top:var(--header-h,0px)}
+.site-header{position:sticky;top:0;z-index:50;background:rgba(244,244,242,.72);-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);transition:transform .3s ease}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-header{background:#f4f4f2}}
+.site-header.nav-hidden{transform:translateY(-100%)}
+.nav-link{position:relative}
+.nav-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.nav-link[aria-current="location"]::after{transform:scaleX(1)}
+@media (prefers-reduced-motion: reduce){.site-header,.nav-link::after{transition:none}}
+.hero-screen{display:flex;flex-direction:column;min-height:calc(100vh - var(--header-h,102px));min-height:calc(100svh - var(--header-h,102px))}
+.hero-screen > #top{flex:1;display:flex;flex-direction:column;justify-content:center}
+.specialties-wrap{container-type:inline-size}
+.specialties{grid-template-columns:1fr}
+@container (min-width: 480px){.specialties{grid-template-columns:repeat(2,1fr)}}
+@container (min-width: 740px){.specialties{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
 <div style="background: #f4f4f2; color: #161616; font-family: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 17px; line-height: 1.55; min-height: 100vh">
-<div style="max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px)">
 
 <!-- NAV -->
-<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 28px 0">
+<header id="site-header" class="site-header" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 28px clamp(20px, 4vw, 48px)">
 <a href="#top" style="font-weight: 600; text-decoration: none; font-size: 17px">Walter Martins</a>
 <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px">
-<a href="#work" style="text-decoration: none">Work</a>
-<a href="#experience" style="text-decoration: none">Experience</a>
-<a href="#trackside" style="text-decoration: none">Trackside</a>
-<a href="#contact" style="text-decoration: none">Contact</a>
+<a href="#work" class="nav-link" style="text-decoration: none">Work</a>
+<a href="#trackside" class="nav-link" style="text-decoration: none">Trackside</a>
+<a href="#experience" class="nav-link" style="text-decoration: none">Experience</a>
+<a href="#contact" class="nav-link" style="text-decoration: none">Contact</a>
 <a href="mailto:wrmartins8125@gmail.com" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border: 1px solid #cfcfc9; border-radius: 999px; text-decoration: none; font-weight: 500"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #1f8a4c; display: inline-block"></span>Open to opportunities</a>
 </nav>
 </header>
 
-<!-- HERO -->
+<div style="padding: 0 clamp(20px, 4vw, 48px)">
+
+<!-- HERO: hero + specialties fill the first screen, brands start below the fold -->
+<div class="hero-screen">
 <section id="top" style="padding: clamp(32px, 6vw, 72px) 0 0">
 <div style="display: flex; flex-wrap: wrap; align-items: stretch; justify-content: space-between; gap: 48px">
 <div style="flex: 1 1 560px; display: flex; flex-direction: column; justify-content: space-between; gap: 36px">
@@ -63,8 +79,8 @@ a:focus-visible{outline:2px solid #c2410c;outline-offset:3px;border-radius:4px}
 <section aria-label="Specialties" style="padding: clamp(56px, 8vw, 104px) 0 clamp(32px, 5vw, 56px)">
 <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; padding-top: 24px; border-top: 1px solid #dcdcd7">
 <p style="margin: 0; flex: 0 0 200px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5c5c58">Specialties</p>
-<div style="flex: 1 1 560px; min-width: 0">
-<ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 10px 32px">
+<div class="specialties-wrap" style="flex: 1 1 560px; min-width: 0">
+<ul class="specialties" style="margin: 0; padding: 0; list-style: none; display: grid; gap: 10px 32px">
 <li style="padding-bottom: 10px; border-bottom: 1px solid #dcdcd7">Motorcycle R&amp;D</li>
 <li style="padding-bottom: 10px; border-bottom: 1px solid #dcdcd7">EV powertrain packaging</li>
 <li style="padding-bottom: 10px; border-bottom: 1px solid #dcdcd7">Carbon fibre composite molds</li>
@@ -75,6 +91,7 @@ a:focus-visible{outline:2px solid #c2410c;outline-offset:3px;border-radius:4px}
 </div>
 </div>
 </section>
+</div>
 
 <!-- BRANDS -->
 <section aria-label="Brands he has delivered projects for" style="padding: 28px 0 clamp(40px, 6vw, 72px)">
@@ -457,5 +474,111 @@ a:focus-visible{outline:2px solid #c2410c;outline-offset:3px;border-radius:4px}
 
 </div>
 </div>
+<script>
+(function () {
+  var header = document.getElementById('site-header');
+  var root = document.documentElement;
+  var navLinks = Array.prototype.slice.call(header.querySelectorAll('nav a[href^="#"]'));
+  // Spy targets in page order: the hero (clears the highlight) plus every section a nav link points to.
+  // Sections without a link (e.g. "In the field") keep the previous link highlighted.
+  var linkedIds = navLinks.map(function (a) { return a.getAttribute('href').slice(1); });
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[id], footer[id]'))
+    .filter(function (s) { return s.id === 'top' || linkedIds.indexOf(s.id) !== -1; });
+  var lastY = window.scrollY;
+  var ticking = false;
+  var navigating = false; // true while a click-triggered scroll is running
+  var idleTimer;
+  var THRESHOLD = 8; // px of travel before toggling, filters jitter
+  // A section is "current" once its top passes a line just below the header
+  // (capped at 35% of the viewport so short screens still switch in time)
+  var SPY_OFFSET = 160;
+  var SPY_MAX = 0.35;
+
+  // Anchor jumps land below the sticky header (see scroll-padding-top in CSS)
+  function setHeaderHeight() {
+    root.style.setProperty('--header-h', header.offsetHeight + 'px');
+  }
+
+  function setActive(id) {
+    navLinks.forEach(function (a) {
+      if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  }
+
+  function currentSectionId() {
+    // Last section may be too short to reach the spy line, so bottom of page = last section
+    if (window.innerHeight + window.scrollY >= root.scrollHeight - 2) return sections[sections.length - 1].id;
+    var line = Math.min(window.innerHeight * SPY_MAX, header.offsetHeight + SPY_OFFSET);
+    var id = null;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top > line) break;
+      id = sections[i].id;
+    }
+    return id;
+  }
+
+  function update() {
+    ticking = false;
+    if (!navigating) setActive(currentSectionId());
+
+    var maxY = root.scrollHeight - window.innerHeight;
+    var y = Math.max(0, Math.min(window.scrollY, maxY)); // clamp iOS overscroll bounce
+
+    // Keep nav visible near the top and while a nav click is scrolling the page
+    if (navigating || y <= header.offsetHeight) {
+      header.classList.remove('nav-hidden');
+      lastY = y;
+      return;
+    }
+    var delta = y - lastY;
+    if (Math.abs(delta) < THRESHOLD) return;
+    header.classList.toggle('nav-hidden', delta > 0);
+    lastY = y;
+  }
+
+  // Clicked link stays highlighted until the user scrolls again, even if the
+  // page bottoms out before the target reaches the top
+  function endNavigation() {
+    navigating = false;
+    lastY = window.scrollY;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (navigating) {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(endNavigation, 150); // scroll idle = click navigation finished
+    }
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  }, { passive: true });
+
+  // Clicking an in-page link highlights its target right away, without
+  // flashing every section passed on the way there
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id || !document.getElementById(id)) return;
+    navigating = true;
+    setActive(id);
+    header.classList.remove('nav-hidden');
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(endNavigation, 150);
+  });
+
+  // Keep nav reachable for keyboard users tabbing into it
+  header.addEventListener('focusin', function () {
+    header.classList.remove('nav-hidden');
+  });
+
+  if ('ResizeObserver' in window) new ResizeObserver(setHeaderHeight).observe(header);
+  window.addEventListener('resize', function () { setHeaderHeight(); update(); });
+  setHeaderHeight();
+  update();
+})();
+</script>
 </body>
 </html>
